@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Roulette</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin-top: 50px;
+            background-color: #070214; /* 背景色を追加 */
+        }
+
+        h1 {
+            color: #eb1398; /* タイトルの色 */
+        }
+
+        button {
+            padding: 20px 40px;
+            font-size: 20px;
+            cursor: pointer;
+            border: none;
+            border-radius: 5px;
+            background-color: #509cfa; /* ボタンの色 */
+            color: white; /* ボタンの文字色 */
+        }
+
+        button:hover {
+            background-color: #3768a6; /* ホバー時の色 */
+        }
+
+        button.small {
+            padding: 10px 20px;
+            font-size: 10px;
+            cursor: pointer;
+            border: none;
+            border-radius: 5px;
+            background-color: #509cfa; /* ボタンの色 */
+            color: white; /* ボタンの文字色 */
+        }
+
+        p {
+            font-size: 20px;
+            font-weight: bold;
+            margin-top: 20px;
+            color: white;
+        }
+
+        .message {
+            color: #ffffff; /* メッセージの色を白に */
+            font-size: 14px;
+        }
+
+        label {
+            color:#ffffff
+        }
+
+        h3 {
+            color:white;
+            font-size:15px;
+        }
+
+        h4 {color:white;}
+
+        h5 {color: white;
+            font-size:10px;}
+
+    </style>
+</head>
+<body>
+      
+    <h1>ルーレット</h1>
+
+    <form action="/" method="post">
+        <label for="mode">モードを選択してください</label>
+        <select name="mode"id="mode">
+            <option value="A" {% if mode == 'A' %}selected{% endif %}>軽め</option>
+            <option value="B" {% if mode == 'B' %}selected{% endif %}>重め</option>
+            <option value="mixed" {% if mode == 'mixed' %}selected{% endif %}>混合</option>
+        </select>
+
+        {% if message %}
+        <p class="message">{{ message }}</p> 
+        {% endif %}
+
+        <button type="submit">Spin</button>
+    </form>
+
+    {% if result %}
+        <p style="color:#eb1398;">結果: {{ result }}</p>
+    {% endif %}
+
+    <button class="small" onclick="document.getElementById('results').style.display='block';">結果一覧を表示</button>
+    <div id="results" style="display:none;">
+        <h2>結果一覧</h2>
+        <ul>{% for item in current_results %}
+            <li>{{ item }}</li>{% endfor %}
+        </ul>
+    </div>
+    
+
+    </form>
+
+    <ul>{% for item in custom_results %}
+        <li>{{ item }}</li>{% endfor %}
+    </ul>
+
+    <h3>使い方</h3>
+    <h5>三種類のモードの中から選んでスピンボタンを押すと結果が表示されます。結果一覧を表示をクリックすると、出てくる結果の一覧がみられます。
+        ※このルーレットでは「異性」と示されている部分は、恋愛対象となる性別に置き換えてご回答ください
+    </h5>
+
+    <script>
+        // Import the functions you need from the SDKs you need
+        import { initializeApp } from "firebase/app";
+
+        // Your web app's Firebase configuration
+        const firebaseConfig = {
+            apiKey: "AIzaSyBtJiWcdq780aoOtDB2uJgV4tZb7oMI_k8",
+            authDomain: "roulette-384b.firebaseapp.com",
+            projectId: "roulette-384b",
+            storageBucket: "roulette-384b.appspot.com",
+            messagingSenderId: "876319381431",
+            appId: "1:876319381431:web:bb9f0be6bae42317ebba32"
+        };
+
+        // Initialize Firebase
+        const app = initializeApp(firebaseConfig);
+    </script>
+
+</body>
+</html>
